@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
 
   geolocator: ^6.1.7
+  http: ^0.12.2
+
 
 
 

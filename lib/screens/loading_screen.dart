@@ -1,48 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:flutter_clima/location.dart';
+import 'package:flutter_clima/services/location.dart';
+import 'package:http/http.dart' as http;
 
 
 class LoadingScreen extends StatefulWidget {
   @override
-  _LoadingScreenState createState() => _LoadingScreenState();
+  State<StatefulWidget> createState() {
+  return _LoadingScreenState();}
 }
+
 
 class _LoadingScreenState extends State<LoadingScreen> {
 
-  Position _currentPosition;
+  @override
 
   void initState() {
     super.initState();
-    _getCurrentLocation();
+    getLocation();
   }
-  // void getLocation() async {
-  //   Position _currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-  //   print(_currentPosition);
-  // }
-  //
-  void _getCurrentLocation() async{
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low)
-        .then((Position position) {
-      setState(() {
-        _currentPosition = position;
-        print(_currentPosition);
 
-      });
+  void getLocation() async{
+    Location location = Location();
+    await location.getCurrentLocation();
+      print(location.latitude);
+      print(location.longitude);
+  }
 
+  void getData() async {
+    http.Response response = await http.get(
+      'https://samples.openweathermap.org/data/2.5/weather?lat=-37.854&lon=144.9650&appid=b6907d289e10d714a6e88b30761ae22');
 
-    }).catchError((e) {
-      print(e);
-    });
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(data);
+    } else {
+      print(response.statusCode);
+    }
+
   }
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
       body: Center(
         child: RaisedButton(
           onPressed: () {
             print('Button Pressed');
-            _getCurrentLocation();
+            getLocation();
           },
           child: Text('Get Location'),
         ),
