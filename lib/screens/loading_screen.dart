@@ -47,8 +47,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       return LocationScreen(locationWeather: weatherData,);
     }));
 
-
-
   }
 
   @override
