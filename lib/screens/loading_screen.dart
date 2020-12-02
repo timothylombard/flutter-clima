@@ -44,7 +44,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     print('Temp: $temperature');
 
     Navigator.push(context, MaterialPageRoute(builder: (context){
-      return LocationScreen();
+      return LocationScreen(locationWeather: weatherData,);
     }));
 
 

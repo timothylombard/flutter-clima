@@ -23,6 +23,8 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
 
+    print(widget.locationWeather);
+
     updateUI(widget.locationWeather);
   }
 
