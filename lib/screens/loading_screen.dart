@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clima/services/location.dart';
 import 'package:flutter_clima/services/networking.dart';
+import 'location_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const apiKey = 'd7485d61229ce54a64284ef4a91f22af';
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
@@ -37,6 +39,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     var weatherData = await networkHelper.getData();
 
+    double temperature = weatherData['main']['temp'];
+
+    print('Temp: $temperature');
+
+    Navigator.push(context, MaterialPageRoute(builder: (context){
+      return LocationScreen();
+    }));
+
 
 
   }
@@ -46,12 +56,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            print(latitude);
-            print(longitude);
-          },
-          child: Text('Get Location'),
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100.0,
         ),
       ),
     );
